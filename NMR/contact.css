@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; */
+    --bs-body-font-family: 'Poppins', sans-serif;
+    --bs-body-font-size: 13px; /* Adjust as needed */
+    --bs-body-font-weight: 200; /* Adjust as needed */
+    --bs-body-bg:#a5c8ec;
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+
+    background-color: #a5c8ec;
+
+}
+/* Define font weights and styles */
+.bold {
+    font-weight: 700;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url('bg1.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Make the navbar sticky */
+.navbar.n{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgb(255, 255, 255) /* Add background color */
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: brown;
+}
