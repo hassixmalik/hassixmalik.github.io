@@ -4,7 +4,6 @@
     body {
         margin: 0;
         padding: 0;
-        overflow: hidden;
         --bs-body-font-family: 'Poppins', sans-serif;
         --bs-body-font-size: 20px; /* Adjust as needed */
         --bs-body-font-weight: 300; /* Adjust as needed */
@@ -19,8 +18,6 @@
         font-family: var(--bs-body-font-family);
         font-size: var(--bs-body-font-size);
         font-weight: var(--bs-body-font-weight);
-        overflow: hidden;
-
     }
 
     .background-image {
