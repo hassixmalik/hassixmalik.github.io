@@ -1,0 +1,825 @@
+/* ==========================================================================
+   Muhammad Hassan Raza — portfolio
+   Design tokens and layout. Editorial sans, mono seasoning, one accent.
+   ========================================================================== */
+
+:root {
+  --bg: #f7f7f5;
+  --fg: #17171a;
+  --muted: #70706e;
+  --faint: #9b9b98;
+  --line: #e2e2de;
+  --card: #fdfdfc;
+  --accent: oklch(0.47 0.12 250);
+  --on-accent: #fff;
+
+  --sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", "Menlo", monospace;
+
+  --wrap: 1120px;
+  --gutter: 32px;
+  --section-y: clamp(56px, 8vw, 110px);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+html[data-theme="dark"] {
+  --bg: #0e0e0e;
+  --fg: #efefec;
+  --muted: #9a9a95;
+  --faint: #6e6e6a;
+  --line: #242423;
+  --card: #141414;
+  --accent: oklch(0.74 0.11 250);
+  --on-accent: #0e0e0e;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  /* Sticky header shouldn't crop the section you just jumped to. */
+  scroll-padding-top: 76px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.18s var(--ease), border-color 0.18s var(--ease),
+    background-color 0.18s var(--ease);
+}
+
+a:hover {
+  color: var(--fg);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
+  text-wrap: pretty;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--fg);
+  color: var(--bg);
+  font: 500 13px/1 var(--mono);
+}
+
+.skip-link:focus {
+  left: 12px;
+  top: 12px;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* --- Header --------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+
+/* color-mix is well supported, but a hard fallback keeps the blur legible. */
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+  .site-header {
+    background: var(--bg);
+  }
+}
+
+.site-header__inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 14px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.wordmark {
+  font: 500 13px/1 var(--mono);
+  letter-spacing: 0.02em;
+  color: var(--fg);
+}
+
+.wordmark span {
+  color: var(--accent);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.site-nav a {
+  font: 400 13px/1 var(--mono);
+  color: var(--muted);
+}
+
+.site-nav a:hover {
+  color: var(--fg);
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.18s var(--ease), border-color 0.18s var(--ease);
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.theme-toggle svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Moon invites dark mode; sun invites light. Show the one you'd switch to. */
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+html[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+/* --- Sections ------------------------------------------------------------- */
+
+.section {
+  padding: var(--section-y) 0;
+  border-top: 1px solid var(--line);
+}
+
+/* Mono label column + content column. */
+.section--split {
+  display: grid;
+  grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 72px);
+}
+
+.eyebrow {
+  font: 400 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--faint);
+}
+
+.section--split .eyebrow {
+  margin-top: 6px;
+}
+
+.section__eyebrow {
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+/* --- Buttons -------------------------------------------------------------- */
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn--primary {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+.btn--primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+/* An unfinished item, marked rather than faked. */
+.btn--todo {
+  border-style: dashed;
+  color: var(--faint);
+  font: 400 13px/1 var(--mono);
+  cursor: default;
+}
+
+.todo {
+  font: 400 11px/1 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--faint);
+}
+
+/* --- Hero ----------------------------------------------------------------- */
+
+.hero {
+  padding: clamp(80px, 13vw, 180px) 0 clamp(56px, 7vw, 96px);
+}
+
+.hero__eyebrow {
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.hero__title {
+  font-size: clamp(40px, 6.6vw, 86px);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  max-width: 19ch;
+}
+
+.hero__title span {
+  color: var(--accent);
+}
+
+.hero__sub {
+  font-size: clamp(19px, 2.2vw, 28px);
+  line-height: 1.45;
+  color: var(--muted);
+  margin-top: clamp(24px, 3vw, 34px);
+  max-width: 30ch;
+}
+
+.hero__role {
+  font: 400 13px/1.5 var(--mono);
+  color: var(--faint);
+  margin-top: 22px;
+}
+
+.hero .btn-row {
+  margin-top: clamp(34px, 4.5vw, 52px);
+}
+
+/* --- Metrics -------------------------------------------------------------- */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 32px;
+  margin-top: clamp(56px, 8vw, 104px);
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+}
+
+.metric__value {
+  font-weight: 400;
+  font-size: clamp(34px, 4vw, 50px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.metric__value sup {
+  font-size: 0.45em;
+  color: var(--muted);
+  vertical-align: baseline;
+  top: 0;
+  margin-left: 4px;
+}
+
+.metric__value--accent {
+  color: var(--accent);
+}
+
+.metric__label {
+  font: 400 11px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--faint);
+  margin-top: 10px;
+}
+
+/* --- Hero marquee --------------------------------------------------------- */
+
+.marquee-link {
+  display: block;
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.marquee-link__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.marquee-link__more {
+  font: 400 11px/1 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.marquee-link:hover .marquee-link__more {
+  color: var(--fg);
+}
+
+/* Lives inside an <a>, so these are spans — they need explicit block/flex
+   display or overflow, width and the edge mask are all ignored. */
+.marquee {
+  display: block;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+/* The loop resets at -50%, so one group must be exactly half the track.
+   Spacing rides on each group's trailing padding rather than a gap between
+   them — a gap would make half-track land mid-space and the seam visibly jump. */
+.marquee__group {
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  padding-right: 44px;
+  flex: none;
+}
+
+.marquee .ic {
+  width: 22px;
+  height: 22px;
+}
+
+.marquee__text {
+  font: 500 14px/1 var(--mono);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Work cards ----------------------------------------------------------- */
+
+.card {
+  display: grid;
+  /* Pack rows at the top. Side-by-side cards stretch to equal height, and
+     without this the shorter card's rows stretch too — turning its tag pills
+     into tall ovals. */
+  align-content: start;
+  gap: 28px;
+  padding: clamp(28px, 3.4vw, 44px);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--card);
+}
+
+.card + .card,
+.card-grid {
+  margin-top: 20px;
+}
+
+.card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card__title {
+  font-size: clamp(24px, 3vw, 38px);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  max-width: 24ch;
+}
+
+.card__meta {
+  font: 400 12px/1.4 var(--mono);
+  color: var(--faint);
+}
+
+/* PROBLEM / DID / OUTCOME, three across on the flagship cards. */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 26px;
+}
+
+.fact__label {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  margin-bottom: 8px;
+}
+
+.fact__body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* The outcome is the point of the card — hold it at full text colour. */
+.fact--outcome .fact__body {
+  color: var(--fg);
+}
+
+/* Explicitly 2-up, not auto-fit: at 1120px auto-fit packs a third column and
+   leaves card 06 stranded on a row of its own. */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card--compact {
+  gap: 22px;
+  padding: clamp(26px, 3vw, 36px);
+}
+
+.card--compact .card__title {
+  font-size: clamp(22px, 2.4vw, 29px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-top: 10px;
+}
+
+.card--compact .facts {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+
+.card--compact .fact__body {
+  font-size: 15px;
+}
+
+/* --- Tech tags ------------------------------------------------------------ */
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: 400 12px/1 var(--mono);
+  color: var(--muted);
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.tag .ic {
+  width: 13px;
+  height: 13px;
+}
+
+/* --- Timeline ------------------------------------------------------------- */
+
+.tl-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.tl-row:last-child {
+  border-bottom: 0;
+}
+
+.tl-role {
+  font-weight: 500;
+  font-size: clamp(18px, 1.9vw, 22px);
+  letter-spacing: -0.015em;
+}
+
+.tl-role span {
+  color: var(--accent);
+}
+
+.tl-org {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.tl-date {
+  font: 400 12px/1.4 var(--mono);
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+.tl-edu {
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.tl-edu span {
+  font: 400 12px/1.4 var(--mono);
+  color: var(--faint);
+}
+
+/* --- Stack ---------------------------------------------------------------- */
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(28px, 4vw, 52px);
+}
+
+.stack-group__title {
+  font-weight: 500;
+  font-size: 17px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.stack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+
+.stack-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: 400 13px/1 var(--mono);
+  color: var(--muted);
+}
+
+.stack-list .ic {
+  width: 14px;
+  height: 14px;
+}
+
+ul.stack-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Recognition ---------------------------------------------------------- */
+
+.recognition {
+  display: grid;
+  gap: 14px;
+}
+
+.badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font: 500 13px/1 var(--mono);
+  color: var(--fg);
+  padding: 7px 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.badge .ic {
+  width: 14px;
+  height: 14px;
+}
+
+.cert {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cert__name {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.cert__year {
+  font: 400 12px/1.4 var(--mono);
+  color: var(--faint);
+}
+
+/* --- Footer --------------------------------------------------------------- */
+
+.site-footer {
+  padding: var(--section-y) 0 clamp(48px, 6vw, 80px);
+  border-top: 1px solid var(--line);
+}
+
+.footer__title {
+  font-size: clamp(30px, 4.6vw, 60px);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  max-width: 22ch;
+}
+
+.site-footer .btn-row {
+  margin: clamp(30px, 4vw, 44px) 0 clamp(48px, 7vw, 84px);
+}
+
+.colophon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font: 400 12px/1.4 var(--mono);
+  color: var(--faint);
+}
+
+/* --- Prose ---------------------------------------------------------------- */
+
+.lede {
+  font-size: clamp(20px, 2.1vw, 27px);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+/* --- Reveal --------------------------------------------------------------- */
+
+/* Hidden only once JS confirms it can reveal again — no-JS keeps everything visible. */
+html.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+}
+
+html.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .site-nav {
+    gap: 18px;
+  }
+
+  /* Section anchors stay reachable from the footer; drop the least-scanned link. */
+  .site-nav a[href="#timeline"] {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .section--split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .section--split .eyebrow {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 24px;
+  }
+
+  .site-nav a[href="#stack"] {
+    display: none;
+  }
+
+  .tl-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .card__head {
+    gap: 10px;
+  }
+
+  /* Project number/client reads better above a wrapping title on narrow screens. */
+  .card__head .card__meta {
+    order: -1;
+  }
+}
+
+@media (max-width: 400px) {
+  .site-nav a[href="#work"] {
+    display: none;
+  }
+}
+
+/* --- Motion preferences --------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .marquee__track {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

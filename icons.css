@@ -1,0 +1,41 @@
+/* Brand marks — Simple Icons (CC0), inlined as a sprite. Generated, not hand-edited. */
+.ic{width:1em;height:1em;flex:none;fill:currentColor}
+
+.ic--claude{fill:#D97757}
+.ic--cloudflare{fill:#F38020}
+.ic--docker{fill:#2496ED}
+.ic--elevenlabs{fill:#000000}
+.ic--express{fill:#0A0A0A}
+.ic--gha{fill:#2088FF}
+.ic--graphql{fill:#E10098}
+.ic--js{fill:#BDA907}  /* #F7DF1E deepened for the light canvas */
+.ic--k8s{fill:#326CE5}
+.ic--laravel{fill:#FF2D20}
+.ic--mariadb{fill:#003545}
+.ic--mongo{fill:#47A248}
+.ic--mysql{fill:#4479A1}
+.ic--nest{fill:#E0234E}
+.ic--node{fill:#5FA04E}
+.ic--php{fill:#777BB4}
+.ic--postgres{fill:#4169E1}
+.ic--prisma{fill:#2D3748}
+.ic--python{fill:#3776AB}
+.ic--react{fill:#06B6E6}  /* #61DAFB deepened for the light canvas */
+.ic--stripe{fill:#635BFF}
+.ic--tailwind{fill:#06B6D4}
+.ic--terraform{fill:#844FBA}
+.ic--ts{fill:#3178C6}
+.ic--typeorm{fill:#FE0803}
+.ic--upwork{fill:#50BC25}  /* #6FDA44 deepened for the light canvas */
+.ic--vite{fill:#9135FF}
+.ic--vue{fill:#44BC86}  /* #4FC08D deepened for the light canvas */
+
+/* Marks that need a lift to stay legible on the dark canvas. */
+html[data-theme="dark"] .ic--elevenlabs{fill:#4D4D4D}
+html[data-theme="dark"] .ic--express{fill:#4C4C4C}
+html[data-theme="dark"] .ic--js{fill:#F7DF1E}
+html[data-theme="dark"] .ic--mariadb{fill:#00546E}
+html[data-theme="dark"] .ic--prisma{fill:#3F4D64}
+html[data-theme="dark"] .ic--react{fill:#61DAFB}
+html[data-theme="dark"] .ic--upwork{fill:#6FDA44}
+html[data-theme="dark"] .ic--vue{fill:#4FC08D}
