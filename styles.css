@@ -529,6 +529,43 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   font-size: 15px;
 }
 
+/* --- Open source tools (zippedsauce) ------------------------------------- */
+
+.tools__intro {
+  max-width: 60ch;
+  margin: 0 0 28px;
+  color: var(--muted);
+}
+
+.card-grid--tools {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card--compact .card__title a {
+  color: inherit;
+}
+
+.card--compact .card__title a:hover {
+  color: var(--accent);
+}
+
+.tool__body {
+  margin: 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.tool__links {
+  margin: 0;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .card-grid--tools {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* --- Tech tags ------------------------------------------------------------ */
 
 .tags {
